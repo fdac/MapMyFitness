@@ -1,0 +1,96 @@
+server_address: ('localhost.mapmyapi.com', 12345)
+Now waiting for the user to authorize the application...
+Got an authorize code: f9c921699612911ea09f65f81edef7f781ced2b8
+Request details:
+Content-Type: application/x-www-form-urlencoded
+Request body: code=f9c921699612911ea09f65f81edef7f781ced2b8&client_secret=2kkHbMQVvsEPXSk98VE3Cyd5cHMEYqzyHq82rutHe9A&grant_type=authorization_code&client_id=3n3hce6yq6kz2r2h9mgbqc85rwy5r8qp
+Got an access token: {u'user_id': u'54889592', u'access_token': u'662d41abf030b09d711d4edb42f72ab258ccd198', u'expires_in': 5183974, u'token_type': u'Bearer', u'scope': u'read', u'user_href': u'/v7.0/user/54889592/', u'refresh_token': u'736bdc1e644e5ccabe483b229ca017a906defd96'}
+Made API Call:
+{
+    "username":"ChrisD7600",
+    "first_name":"Chris",
+    "last_name":"Daffron",
+    "display_name":"Chris D.",
+    "last_initial":"D.",
+    "introduction":"",
+    "gender":"M",
+    "time_zone":"America/Chicago",
+    "_links":{
+        "stats":[
+            {
+                "href":"/v7.0/user_stats/38792087/?aggregate_by_period=month",
+                "id":"38792087",
+                "name":"month"
+            },
+            {
+                "href":"/v7.0/user_stats/38792087/?aggregate_by_period=day",
+                "id":"38792087",
+                "name":"day"
+            },
+            {
+                "href":"/v7.0/user_stats/38792087/?aggregate_by_period=week",
+                "id":"38792087",
+                "name":"week"
+            },
+            {
+                "href":"/v7.0/user_stats/38792087/?aggregate_by_period=year",
+                "id":"38792087",
+                "name":"year"
+            },
+            {
+                "href":"/v7.0/user_stats/38792087/?aggregate_by_period=lifetime",
+                "id":"38792087",
+                "name":"lifetime"
+            }
+        ],
+        "privacy":[
+            {
+                "href":"/v7.0/privacy_option/1/",
+                "id":"1",
+                "name":"profile"
+            }
+        ],
+        "image":[
+            {
+                "href":"/v7.0/user_profile_photo/38792087/",
+                "id":"38792087",
+                "name":"user_profile_photo"
+            }
+        ],
+        "documentation":[
+            {
+                "href":"https://www.mapmyapi.com/docs/User"
+            }
+        ],
+        "user_achievements":[
+            {
+                "href":"/v7.0/user_achievement/?user=38792087"
+            }
+        ],
+        "workouts":[
+            {
+                "href":"/v7.0/workout/?user=38792087&order_by=-start_datetime"
+            }
+        ],
+        "self":[
+            {
+                "href":"/v7.0/user/38792087/",
+                "id":"38792087"
+            }
+        ]
+    },
+    "location":{
+        "country":"US",
+        "region":"TN",
+        "locality":"Knoxville"
+    },
+    "hobbies":"",
+    "date_joined":"2013-09-10T01:27:28+00:00",
+    "profile_statement":"",
+    "id":38792087,
+    "goal_statement":null
+}
+Request details:
+Content-Type: application/x-www-form-urlencoded
+Request body: client_secret=2kkHbMQVvsEPXSk98VE3Cyd5cHMEYqzyHq82rutHe9A&grant_type=refresh_token&refresh_token=736bdc1e644e5ccabe483b229ca017a906defd96&client_id=3n3hce6yq6kz2r2h9mgbqc85rwy5r8qp
+Got an access token: {u'user_id': u'54889592', u'access_token': u'cc86f00478c8bf2cadcf6092c7424501d72264b6', u'expires_in': 5183999, u'token_type': u'Bearer', u'scope': u'read', u'user_href': u'/v7.0/user/54889592/', u'refresh_token': u'8f5d075deb8a4e803117f15a3a9a2a709fac363b'}
