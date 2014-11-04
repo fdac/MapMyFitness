@@ -1,4 +1,7 @@
 
+# Get the # of users currently in each collection
+# Use this while users.py is running to see the status of the collections
+
 import pymongo
 from bson import json_util
 
@@ -25,6 +28,7 @@ if verbose:
 	for user in friends_with.find():
 		print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
 
+# DANGEROUS! REMOVES ALL ENTRIES IN EACH COLLECTION!
 # users.remove()
 # users_to_add.remove()
 # friends_with.remove()
