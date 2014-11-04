@@ -93,6 +93,13 @@ def time_until_next_refresh():
 	difference = next_refresh - now
 	return int( difference.total_seconds() )
 
+
+
+###########################################
+#               MAIN CODE							    #
+###########################################
+
+
 # Get the access token
 access_token_file = 'access_token'
 try:
@@ -147,8 +154,18 @@ while users_to_add.count() != 0:
 	users_to_add.remove( user_to_add_doc )
 	
 	if num_api_calls > limit:
-		wait_time = time_until_next_refresh()
 		print 'Reached API call limit. Waiting until next refresh time (' + str( wait_time ) + ' secs).'
-		time.sleep( wait_time )
+		
+		# Refresh at 12:30 AM GMT the next day
+		next_day = timedelta(days=1)
+		next_refresh_date = now.date() + next_day
+		next_refresh_time = time(0, 30)
+		next_refresh = datetime.combine( next_refresh_date, next_refresh_time )
+
+		# Wait until the next refresh period
+		while datetime.utcnow() < next_refresh:
+			continue
+
+		num_api_calls = 0
 
 
