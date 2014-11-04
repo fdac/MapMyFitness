@@ -136,6 +136,7 @@ while users_to_add.count() != 0:
 	user_doc = get_user_doc( userId )
 	friends_with_doc = get_friends_with_doc( userId )
 	num_api_calls += 2
+	print 'Number of API calls: ' + str( num_api_calls )
 
 	# Add users to database
 	users_insert( users, user_doc )
