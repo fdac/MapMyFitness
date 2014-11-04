@@ -2,6 +2,7 @@
 from fitness_request import *
 import pymongo
 import json
+from datetime import datetime, date, time, timedelta
 
 # MapMyFitness API Calls
 def get_user_doc( userId ):
@@ -77,10 +78,22 @@ def users_to_add_insert( users_collection, users_to_add_collection, user_doc ):
 	else:
 		print 'Not adding ' + str( user_doc['userId'] ) + ' to users_to_add'
 
+def time_until_next_refresh():
+	now = datetime.utcnow() # UTC == GMT
+	
+	# Refresh at 12:30 AM GMT the next day
+	next_day = timedelta(days=1)
+	next_refresh_date = now.date() + next_day
+	next_refresh_time = time(0, 30)
+	next_refresh = datetime.combine( next_refresh_date, next_refresh_time )
 
+	print 'Currently\n\t' + now.ctime()
+	print 'Next refresh\n\t' + next_refresh.ctime()
 
+	difference = next_refresh - now
+	return int( difference.total_seconds() )
 
-
+# Get the access token
 access_token_file = 'access_token'
 try:
 	with open(access_token_file, 'r') as f:
@@ -90,15 +103,26 @@ except:
 	with open(access_token_file, 'w') as f:
 		json.dump(access_token, f)
 
+
+# Local computer connection using the following ssh command
 # ssh -L27017:da0.eecs.utk.edu:27017 -p 2200 -fN jwill221@da2.eecs.utk.edu
 # client = pymongo.MongoClient('localhost')
+
+# UTK computer connection via da2.eecs.utk.edu 
 client = pymongo.MongoClient('da0.eecs.utk.edu')
+
+# Get the database
 fitnessDb = client['MapMyFitness']
 
+# Get the collections
 users = fitnessDb['users']
 users_to_add = fitnessDb['users_to_add']
 friends_with = fitnessDb['friends_with']
 
+num_api_calls = 0
+limit = 24500
+
+# Initialize users_to_add
 # userId = 54889592
 # user_doc = { 'userId' : userId }
 # users_to_add_insert( users, users_to_add, user_doc )
@@ -111,6 +135,7 @@ while users_to_add.count() != 0:
 	# Get docs via MapMyApi
 	user_doc = get_user_doc( userId )
 	friends_with_doc = get_friends_with_doc( userId )
+	num_api_calls += 2
 
 	# Add users to database
 	users_insert( users, user_doc )
@@ -119,8 +144,10 @@ while users_to_add.count() != 0:
 		users_to_add_insert( users, users_to_add, user_doc )
 
 	users_to_add.remove( user_to_add_doc )
-
-	# break
 	
+	if num_api_calls > limit:
+		wait_time = time_until_next_refresh()
+		print 'Reached API call limit. Waiting until next refresh time (' + str( wait_time ) + ' secs).'
+		time.sleep( wait_time )
 
 
