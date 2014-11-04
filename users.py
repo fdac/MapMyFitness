@@ -91,16 +91,17 @@ except:
 		json.dump(access_token, f)
 
 # ssh -L27017:da0.eecs.utk.edu:27017 -p 2200 -fN jwill221@da2.eecs.utk.edu
-client = pymongo.MongoClient('localhost')
+# client = pymongo.MongoClient('localhost')
+client = pymongo.MongoClient('da0.eecs.utk.edu')
 fitnessDb = client['MapMyFitness']
 
 users = fitnessDb['users']
 users_to_add = fitnessDb['users_to_add']
 friends_with = fitnessDb['friends_with']
 
-userId = 54889592
-user_doc = { 'userId' : userId }
-users_to_add_insert( users, users_to_add, user_doc )
+# userId = 54889592
+# user_doc = { 'userId' : userId }
+# users_to_add_insert( users, users_to_add, user_doc )
 
 while users_to_add.count() != 0:
 
