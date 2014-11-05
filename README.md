@@ -1,4 +1,4 @@
-MedicalPayments
+MapMyFitness
 ===============
 
-A final project to analyze medical payments
+Analyzin' fitness
