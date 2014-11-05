@@ -1,6 +1,5 @@
 
 # Get the # of users currently in each collection
-# Use this while users.py is running to see the status of the collections
 
 import pymongo
 from bson import json_util
@@ -19,14 +18,29 @@ print '# users to add: ' + str(users_to_add.count())
 print '# users with friends: ' + str(friends_with.count())
 
 if verbose:
-	for user in users.find():
-		print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
 
-	for user in users_to_add.find():
-		print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
+  # Print a single example document from every collection
+  user = users.find_one()
+  print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
 
-	for user in friends_with.find():
-		print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
+  user = users_to_add.find_one()
+  print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
+
+  user = friends_with.find_one()
+  print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
+
+  # Print all documents from every collection
+  # for user in users.find():
+  #   print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
+
+  # for user in users_to_add.find():
+  #   print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
+
+  # for user in friends_with.find():
+  #   print json_util.dumps( user, sort_keys=False, indent=2, separators=( ',', ':' ) )
+
+
+
 
 # DANGEROUS! REMOVES ALL ENTRIES IN EACH COLLECTION!
 # users.remove()
