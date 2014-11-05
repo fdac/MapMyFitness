@@ -83,7 +83,8 @@ class FitnessApi:
 
     # Wait until the next refresh period
     while datetime.utcnow() < next_refresh:
-      continue
+      difference = next_refresh - datetime.utcnow()
+      time.sleep(difference.total_seconds())
 
     return
   
