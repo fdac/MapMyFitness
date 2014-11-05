@@ -2,12 +2,14 @@ import pymongo
 import threading
 import thread
 import time
+import sys
 from fitness_api import *
 from fitness_db import *
 
 def thread_proc(lock, client_id, client_secret, thread_id, user_array):
 	
-	host_name = 'localhost'
+	#host_name = 'localhost'
+	host_name = 'da0.eecs.utk.edu'
 
 	api = FitnessApi( client_id, client_secret )
 	fitDb = FitnessDatabase( host_name )
@@ -41,6 +43,12 @@ CAMILLE_SECRET = 'fDsRmHDRmuAYUmqCHzRu4pqTrfNSDUfzk3BEK8c9cph'
 
 JOSH_ID = 'jjd8nkcx3sjr6weurtjqun4hp6b5p7vk'
 JOSH_SECRET = 'NNHSen7PqBXvyFneKvq4DvDetng6dU8kKZe8pYbx8E9'
+
+ofile_stdout = open('stdout.txt', 'w')
+ofile_stderr = open('stderr.txt', 'w')
+
+os.dup2(ofile_stdout.fileno(), sys.stdout.fileno())
+os.dup2(ofile_stderr.fileno(), sys.stderr.fileno())
 
 IDs = [0,0,0]
 
