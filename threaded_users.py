@@ -23,7 +23,15 @@ def thread_proc(lock, client_id, client_secret, thread_id, user_array):
 
 		# Get docs via MapMyApi
 		user_doc = api.get_user_doc( userId )
-		friends_with_doc = api.get_friends_with_doc( userId )
+        if( user_doc == '' ):
+            print 'Received empty string for user doc, continuing'
+            continue
+        else:
+            friends_with_doc = api.get_friends_with_doc( userId )
+        
+        if( friends_with_doc == '' ):
+            print 'Received empty string for friends_with_doc, continuing'
+            continue
 
 		# Add users to database
 		fitDb.users_insert( user_doc )
@@ -33,8 +41,8 @@ def thread_proc(lock, client_id, client_secret, thread_id, user_array):
 
 		fitDb.users_to_add_remove( user_to_add_doc )
 
-                sys.stdout.flush()
-                sys.stderr.flush()
+        sys.stdout.flush()
+        sys.stderr.flush()
 
 
 lock = threading.Lock()

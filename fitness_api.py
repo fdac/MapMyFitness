@@ -44,8 +44,12 @@ class FitnessApi:
     return
 
   def request( self, request_url ):
-    response = requests.get(url=request_url, verify=False, headers={
-                'api-key': self.client_id, 'authorization': 'Bearer %s' % self.access_token['access_token']})
+    try:
+      response = requests.get(url=request_url, verify=False, headers={
+                  'api-key': self.client_id, 'authorization': 'Bearer %s' % self.access_token['access_token']})
+    except:
+      print 'API request failed (not error code)'
+      return ''
     
     # Over API call limit
     #if( response.status_code == 403 ):
@@ -94,9 +98,13 @@ class FitnessApi:
     access_token_data = {'grant_type': 'client_credentials',
               'client_id': self.client_id,
               'client_secret': self.client_secret}
-
-    response = requests.post(url=access_token_url, data=access_token_data,
-                headers={'Api-Key': self.client_id})
+    try:
+      response = requests.post(url=access_token_url, data=access_token_data,
+                  headers={'Api-Key': self.client_id})
+    except:
+      print 'Request for access token failed (not error code)'
+      return ''
+      
     self.increment_calls()
 
     # Print out debug info if the call is not successful
@@ -113,6 +121,7 @@ class FitnessApi:
       print 'Did not get JSON. Here is the response and content:'
       print response 
       print response.content 
+      access_token = ''
 
     return access_token
 
