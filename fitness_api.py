@@ -103,7 +103,7 @@ class FitnessApi:
                   headers={'Api-Key': self.client_id})
     except:
       print 'Request for access token failed (not error code)'
-      return ''
+      exit()
       
     self.increment_calls()
 
