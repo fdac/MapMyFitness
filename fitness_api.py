@@ -1,5 +1,6 @@
 
 import requests
+import time
 from datetime import datetime, date, time, timedelta
 
 class FitnessApi:
@@ -8,26 +9,57 @@ class FitnessApi:
     self.client_secret = client_secret
 
     self.calls = 0
+    self.call_second = 0
+    self.last_time = time.time()
     self.limit = 24500
+    self.sec_limit = 60
 
     self.access_token = self.get_access_token()
 
   def increment_calls( self ):
     self.calls += 1
+    self.calls_second += 1
+
+    # If over daily API call limit
     if self.calls > self.limit:
       print 'Reached API call limit. Waiting until next refresh time.'
       self.wait()
 
       print 'Refreshed. Grabbing more users.'
       self.calls = 0
+      self.calls_second = 0
+
+    # If over seconds API call limit
+    elif self.calls_second > self.sec_limit:
+      print 'Reached API calls/sec limit. Waiting until next second.'
+      self.sec_wait()
+
+      print 'Refreshed. Grabbing more users.'
+      self.calls = 0
+      self.calls_second = 0
     return
 
   def request( self, request_url ):
     response = requests.get(url=request_url, verify=False, headers={
                 'api-key': self.client_id, 'authorization': 'Bearer %s' % self.access_token['access_token']})
+    
+    # Over API call limit
+    if( response.status_code == 403 ):
+      self.calls = self.limit
+
     self.increment_calls()
 
-    return response.json()
+    # Print debug info if the call fails
+    if( response.status_code != 200 ):
+      print 'ERROR! Received a status code of ' + str(response.status_code) + '\n'
+      print 'URL: ' + str(request_url) + '\n'
+      print 'Received Content:'
+      print response.content
+
+    try:
+      return response.json()
+    except:
+      return ''
 
   def get_user_doc( self, userId ):
     request_url = 'https://oauth2-api.mapmyapi.com/v7.0/user/' + str(userId)
@@ -63,6 +95,14 @@ class FitnessApi:
                 headers={'Api-Key': self.client_id})
     self.increment_calls()
 
+    # Print out debug info if the call is not successful
+    if( response.status_code != 200 ):
+      print 'ERROR! Received a status code of ' + str(response.status_code) + '\n'
+      print 'URL: ' + str(access_token_url) + '\n'
+      print 'Data: ' + str(access_token_data) + '\n'
+      print 'Received Content:'
+      print response.content
+
     try:
       access_token = response.json()
     except:
@@ -88,4 +128,13 @@ class FitnessApi:
 
     return
   
+  def sec_wait(self):
+    # Wait until the next second
+    next_sec = self.last_time + 1
+    while time.time() < next_sec:
+      time.sleep( next_sec - time.time())
+
+    self.last_time = time.time()
+
+    return
 
