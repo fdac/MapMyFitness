@@ -1,6 +1,6 @@
 
 import requests
-import time
+import time as time2
 import math
 from datetime import datetime, date, time, timedelta
 
@@ -10,10 +10,10 @@ class FitnessApi:
     self.client_secret = client_secret
 
     self.calls = 0
-    self.call_second = 0
-    self.last_time = time.time()
+    self.calls_second = 0
+    self.last_time = time2.time()
     self.limit = 24500
-    self.sec_limit = 60
+    self.sec_limit = 55
 
     self.access_token = self.get_access_token()
 
@@ -38,8 +38,8 @@ class FitnessApi:
       print 'Refreshed. Grabbing more users.'
       # self.calls = 0
       self.calls_second = 0
-    elif time.time >= self.last_time + 1:
-      self.last_time = time.time()
+    elif time2.time >= self.last_time + 1:
+      self.last_time = time2.time()
       self.calls = 0
     return
 
@@ -128,17 +128,17 @@ class FitnessApi:
     # Wait until the next refresh period
     while datetime.utcnow() < next_refresh:
       difference = next_refresh - datetime.utcnow()
-      time.sleep(difference.total_seconds())
+      time2.sleep(difference.total_seconds())
 
     return
   
   def sec_wait(self):
     # Wait until the next second
     next_sec = self.last_time + 1
-    while time.time() < next_sec:
-      time.sleep( math.abs(next_sec - time.time()))
+    while time2.time() < next_sec:
+      time2.sleep( math.abs(next_sec - time2.time()))
 
-    self.last_time = time.time()
+    self.last_time = time2.time()
 
     return
 
