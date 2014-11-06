@@ -1,6 +1,7 @@
 
 import requests
 import time
+import math
 from datetime import datetime, date, time, timedelta
 
 class FitnessApi:
@@ -37,6 +38,9 @@ class FitnessApi:
       print 'Refreshed. Grabbing more users.'
       # self.calls = 0
       self.calls_second = 0
+    elif time.time >= self.last_time + 1:
+      self.last_time = time.time()
+      self.calls = 0
     return
 
   def request( self, request_url ):
@@ -44,8 +48,8 @@ class FitnessApi:
                 'api-key': self.client_id, 'authorization': 'Bearer %s' % self.access_token['access_token']})
     
     # Over API call limit
-    if( response.status_code == 403 ):
-      self.calls = self.limit
+    #if( response.status_code == 403 ):
+    #  self.calls = self.limit
 
     self.increment_calls()
 
@@ -132,7 +136,7 @@ class FitnessApi:
     # Wait until the next second
     next_sec = self.last_time + 1
     while time.time() < next_sec:
-      time.sleep( next_sec - time.time())
+      time.sleep( math.abs(next_sec - time.time()))
 
     self.last_time = time.time()
 
