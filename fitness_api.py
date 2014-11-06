@@ -122,7 +122,7 @@ class FitnessApi:
     # Refresh at 12:30 AM GMT the next day
     next_day = timedelta(days=1)
     next_refresh_date = now.date() + next_day
-    next_refresh_time = datetime.time(0, 30)
+    next_refresh_time = time(0, 30)
     next_refresh = datetime.combine( next_refresh_date, next_refresh_time )
 
     # Wait until the next refresh period

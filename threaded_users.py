@@ -33,6 +33,9 @@ def thread_proc(lock, client_id, client_secret, thread_id, user_array):
 
 		fitDb.users_to_add_remove( user_to_add_doc )
 
+                sys.stdout.flush()
+                sys.stderr.flush()
+
 
 lock = threading.Lock()
 CHRIS_ID = '3n3hce6yq6kz2r2h9mgbqc85rwy5r8qp'
@@ -44,19 +47,23 @@ CAMILLE_SECRET = 'fDsRmHDRmuAYUmqCHzRu4pqTrfNSDUfzk3BEK8c9cph'
 JOSH_ID = 'jjd8nkcx3sjr6weurtjqun4hp6b5p7vk'
 JOSH_SECRET = 'NNHSen7PqBXvyFneKvq4DvDetng6dU8kKZe8pYbx8E9'
 
-ofile_stdout = open('stdout.txt', 'w')
-ofile_stderr = open('stderr.txt', 'w')
+#ofile_stdout = open('stdout.txt', 'w')
+#ofile_stderr = open('stderr.txt', 'w')
 
-os.dup2(ofile_stdout.fileno(), sys.stdout.fileno())
-os.dup2(ofile_stderr.fileno(), sys.stderr.fileno())
+#os.dup2(ofile_stdout.fileno(), sys.stdout.fileno())
+#os.dup2(ofile_stderr.fileno(), sys.stderr.fileno())
 
 IDs = [0,0,0]
 
-t = threading.Thread(target=thread_proc, args=(lock, CHRIS_ID, CHRIS_SECRET, 0, IDs))
-t.start()
-t = threading.Thread(target=thread_proc, args=(lock, CAMILLE_ID, CAMILLE_SECRET, 1, IDs))
-t.start()
-t = threading.Thread(target=thread_proc, args=(lock, JOSH_ID, JOSH_SECRET, 2, IDs))
-t.start()
+t1 = threading.Thread(target=thread_proc, args=(lock, CHRIS_ID, CHRIS_SECRET, 0, IDs))
+t1.start()
+t2 = threading.Thread(target=thread_proc, args=(lock, CAMILLE_ID, CAMILLE_SECRET, 1, IDs))
+t2.start()
+t3 = threading.Thread(target=thread_proc, args=(lock, JOSH_ID, JOSH_SECRET, 2, IDs))
+t3.start()
+
+t1.join()
+t2.join()
+t3.join()
 
 print 'Done with master thread'
