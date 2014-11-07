@@ -77,8 +77,18 @@ class FitnessDatabase:
 
   def get_unique_user_to_add(self, thread_id, user_array):
     if( thread_id == 0 ):
-      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[2] } } ] } )
-    if( thread_id == 1 ):
-      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[2] } } ] } )
-    if( thread_id == 2 ):
-      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[1] } } ] } )
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[2] } }, { 'userId': { '$ne': user_array[3] } }, { 'userId': { '$ne': user_array[4] } }, { 'userId': { '$ne': user_array[5] } }, { 'userId': { '$ne': user_array[6] } }, { 'userId': { '$ne': user_array[7] } } ] } )
+    elif( thread_id == 1 ):
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[2] } }, { 'userId': { '$ne': user_array[3] } }, { 'userId': { '$ne': user_array[4] } }, { 'userId': { '$ne': user_array[5] } }, { 'userId': { '$ne': user_array[6] } }, { 'userId': { '$ne': user_array[7] } } ] } )
+    elif( thread_id == 2 ):
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[3] } }, { 'userId': { '$ne': user_array[4] } }, { 'userId': { '$ne': user_array[5] } }, { 'userId': { '$ne': user_array[6] } }, { 'userId': { '$ne': user_array[7] } } ] } )
+    elif( thread_id == 3 ):
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[2] } }, { 'userId': { '$ne': user_array[4] } }, { 'userId': { '$ne': user_array[5] } }, { 'userId': { '$ne': user_array[6] } }, { 'userId': { '$ne': user_array[7] } } ] } )
+    elif( thread_id == 4 ):
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[2] } }, { 'userId': { '$ne': user_array[3] } }, { 'userId': { '$ne': user_array[5] } }, { 'userId': { '$ne': user_array[6] } }, { 'userId': { '$ne': user_array[7] } } ] } )
+    elif( thread_id == 5 ):
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[2] } }, { 'userId': { '$ne': user_array[3] } }, { 'userId': { '$ne': user_array[4] } }, { 'userId': { '$ne': user_array[6] } }, { 'userId': { '$ne': user_array[7] } } ] } )
+    elif( thread_id == 6 ):
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[2] } }, { 'userId': { '$ne': user_array[3] } }, { 'userId': { '$ne': user_array[4] } }, { 'userId': { '$ne': user_array[5] } }, { 'userId': { '$ne': user_array[7] } } ] } )
+    elif( thread_id == 7 ):
+      return self.users_to_add.find_one( { '$and': [ { 'userId': { '$ne': user_array[0] } }, { 'userId': { '$ne': user_array[1] } }, { 'userId': { '$ne': user_array[2] } }, { 'userId': { '$ne': user_array[3] } }, { 'userId': { '$ne': user_array[4] } }, { 'userId': { '$ne': user_array[6] } }, { 'userId': { '$ne': user_array[6] } } ] } )
