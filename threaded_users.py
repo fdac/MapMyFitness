@@ -84,7 +84,7 @@ t2 = threading.Thread(target=thread_proc, args=(lock, CAMILLE_ID, CAMILLE_SECRET
 t2.start()
 t3 = threading.Thread(target=thread_proc, args=(lock, JOSH_ID, JOSH_SECRET, 2, IDs))
 t3.start()
-t4 = threading.Thread(target=thread_proc, argc=(lock, DAVID_ID, DAVID_SECRET, 3, IDs))
+t4 = threading.Thread(target=thread_proc, args=(lock, DAVID_ID, DAVID_SECRET, 3, IDs))
 t4.start()
 t5 = threading.Thread(target=thread_proc, args=(lock, AUDRIS_ID, AUDRIS_SECRET, 4, IDs))
 t5.start()

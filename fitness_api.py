@@ -2,6 +2,7 @@
 import requests
 import time as time2
 import math
+import thread
 from datetime import datetime, date, time, timedelta
 
 class FitnessApi:
@@ -103,7 +104,7 @@ class FitnessApi:
                   headers={'Api-Key': self.client_id})
     except:
       print 'Request for access token failed (not error code)'
-      exit()
+      thread.exit()
       
     self.increment_calls()
 
@@ -114,6 +115,7 @@ class FitnessApi:
       print 'Data: ' + str(access_token_data) + '\n'
       print 'Received Content:'
       print response.content
+      thread.exit()
 
     try:
       access_token = response.json()
