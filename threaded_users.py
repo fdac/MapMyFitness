@@ -26,18 +26,18 @@ def thread_proc(lock, client_id, client_secret, thread_id, user_array):
 		if( user_doc == '' ):
 			print 'Received empty string for user doc, continuing'
 			continue
-		else:
-			friends_with_doc = api.get_friends_with_doc( userId )
+		# else:
+			# friends_with_doc = api.get_friends_with_doc( userId )
         
-		if( friends_with_doc == '' ):
-			print 'Received empty string for friends_with_doc, continuing'
-			continue
+		# if( friends_with_doc == '' ):
+			# print 'Received empty string for friends_with_doc, continuing'
+			# continue
 
 		# Add users to database
 		fitDb.users_insert( user_doc )
-		fitDb.friends_with_insert( friends_with_doc )
-		for user_doc in friends_with_doc['friends']:
-			fitDb.users_to_add_insert( user_doc )
+		# fitDb.friends_with_insert( friends_with_doc )
+		# for user_doc in friends_with_doc['friends']:
+			# fitDb.users_to_add_insert( user_doc )
 
 		fitDb.users_to_add_remove( user_to_add_doc )
 
