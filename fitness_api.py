@@ -41,7 +41,7 @@ class FitnessApi:
       self.calls_second = 0
     elif time2.time >= self.last_time + 1:
       self.last_time = time2.time()
-      self.calls = 0
+      self.calls_second = 0
     return
 
   def request( self, request_url ):
@@ -131,6 +131,7 @@ class FitnessApi:
 
   def wait( self ):
     # Refresh at 12:30 AM GMT the next day
+    now = datetime.utcnow()
     next_day = timedelta(days=1)
     next_refresh_date = now.date() + next_day
     next_refresh_time = time(0, 30)
@@ -147,7 +148,7 @@ class FitnessApi:
     # Wait until the next second
     next_sec = self.last_time + 1
     while time2.time() < next_sec:
-      time2.sleep( math.abs(next_sec - time2.time()))
+      time2.sleep( abs(next_sec - time2.time()))
 
     self.last_time = time2.time()
 
