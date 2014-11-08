@@ -9,7 +9,7 @@ class FitnessDatabase:
     self.fitnessDb = self.client['MapMyFitness']
 
     self.users = self.fitnessDb['users']
-    self.users_to_add = self.fitnessDb['users_to_add']
+    self.users_to_add = self.fitnessDb['users_to_add_copy2']
     self.friends_with = self.fitnessDb['friends_with']
 
   def users_insert(self, user_doc):
