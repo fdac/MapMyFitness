@@ -71,7 +71,7 @@ class FitnessApi:
       return ''
 
   def get_user_doc( self, userId ):
-    request_url = 'https://oauth2-api.mapmyapi.com/v7.0/user/' + str(userId)
+    request_url = 'https://oauth2-api.mapmyapi.com/v7.0/user/' + str(userId) + '/'
     user_doc = self.request(request_url)
     return user_doc
 

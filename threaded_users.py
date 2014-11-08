@@ -18,8 +18,9 @@ def thread_proc(lock, client_id, client_secret, thread_id, user_array):
 
 		lock.acquire()
 		user_to_add_doc = fitDb.get_unique_user_to_add( thread_id, user_array )
-		lock.release()
 		userId = user_to_add_doc['userId']
+		user_array[thread_id] = userId
+		lock.release()
 
 		# Get docs via MapMyApi
 		user_doc = api.get_user_doc( userId )
