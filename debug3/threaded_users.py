@@ -9,45 +9,62 @@ from fitness_db import *
 
 logging.basicConfig(level=logging.DEBUG)
 
-def thread_proc(lock, client_id, client_secret, thread_id, user_array):
+def thread_proc(lock, lock2, client_id, client_secret, thread_id, user_array):
 	
-	#host_name = 'localhost'
-	print 'Entering thread proc'
-	sys.stdout.flush()
-	# host_name = 'da0.eecs.utk.edu'
-	host_name = 'localhost'
+	host_name = 'da0.eecs.utk.edu'
+	# host_name = 'localhost'
 
-	api = FitnessApi( client_id, client_secret )
-	print 'API initialized'
-	sys.stdout.flush()
+	# api = FitnessApi( client_id, client_secret )
 	fitDb = FitnessDatabase( host_name )
-	print 'DB initialized'
-	sys.stdout.flush()
+	
+	lock2.acquire()
+	api = FitnessApi( client_id, client_secret )
+	lock2.release()
 
-	# lock.acquire()
-	# user_to_add_doc = fitDb.get_unique_user_to_add( thread_id, user_array )
-	user_to_add_doc = fitDb.get_user()
-	print str(user_to_add_doc)
-	userId = user_to_add_doc['id']
-	print 'Getting workouts for ' + str(userId)
-	sys.stdout.flush()
-	user_array[thread_id] = userId
-	# lock.release()
+	sys.exit()
 
-	print 'Entering workouts API calls'
-	sys.stdout.flush()
-	doc = api.get_workouts_doc(userId)
-	# Get docs via MapMyApi
-	# user_doc = api.get_user_doc( userId )
-	# if( user_doc == '' ):
-		# print 'Received empty string for user doc, continuing'
-		# exit()
+	# userIds = fitDb.get_userIds( thread_id, num_threads )
+	# for userId in userIds:
+	# 	workouts_docs = api.get_workouts_docs( userId )
+	# 	fitDb.workouts_insert( workouts_docs )
+	# 	
+	
+	while not fitDb.users_to_add_empty():
 
-	sys.stdout.flush()
-	sys.stderr.flush()
+		lock.acquire()
+		user_to_add_doc = fitDb.get_unique_user_to_add( thread_id, user_array )
+		userId = user_to_add_doc['id']
+		user_array[thread_id] = userId
+		lock.release()
+
+		# Get docs via MapMyApi
+		user_doc = api.get_workouts_docs( userId )
+		if( user_doc == [] ):
+			print 'Received empty array for workouts, continuing'
+			continue
+		# else:
+			# friends_with_doc = api.get_friends_with_doc( userId )
+        
+		# if( friends_with_doc == '' ):
+			# print 'Received empty string for friends_with_doc, continuing'
+			# continue
+
+		# Add users to database
+		fitDb.workouts_insert( user_doc )
+		# fitDb.friends_with_insert( friends_with_doc )
+		# for user_doc in friends_with_doc['friends']:
+			# fitDb.users_to_add_insert( user_doc )
+
+		fitDb.users_to_add_remove( user_to_add_doc )
+
+		sys.stdout.flush()
+		sys.stderr.flush()
+
+	
 
 
 lock = threading.Lock()
+lock2 = threading.Lock()
 CHRIS_ID = '3n3hce6yq6kz2r2h9mgbqc85rwy5r8qp'
 CHRIS_SECRET = '2kkHbMQVvsEPXSk98VE3Cyd5cHMEYqzyHq82rutHe9A'
 
@@ -90,28 +107,30 @@ DEBUG_SECRET = 'shuWPNWWH3zhpw2k5seE9WJMY7HHa7x3xShYR5nv9Ya'
 #os.dup2(ofile_stdout.fileno(), sys.stdout.fileno())
 #os.dup2(ofile_stderr.fileno(), sys.stderr.fileno())
 
-IDs = [0,0,0,0,0,0,0,0,0,0,0]
 
-t1 = threading.Thread(target=thread_proc, args=(lock, DEBUG_ID, DEBUG_SECRET, 0, IDs))
+
+IDs = [0,0,0,0,0,0]
+
+t12 = threading.Thread(target=thread_proc, args=(lock, lock2, DEBUG_ID, DEBUG_SECRET, 0, IDs))
+t12.start()
+
+t1  = threading.Thread(target=thread_proc, args=(lock, lock2, CHRIS_ID, CHRIS_SECRET, 1, IDs))
 t1.start()
-
-# t1  = threading.Thread(target=thread_proc, args=(lock, CHRIS_ID, CHRIS_SECRET, 0, IDs))
-# t1.start()
-# t2  = threading.Thread(target=thread_proc, args=(lock, CAMILLE_ID, CAMILLE_SECRET, 1, IDs))
-# t2.start()
-# t3  = threading.Thread(target=thread_proc, args=(lock, JOSH_ID, JOSH_SECRET, 2, IDs))
-# t3.start()
-# t4  = threading.Thread(target=thread_proc, args=(lock, DAVID_ID, DAVID_SECRET, 3, IDs))
-# t4.start()
+t2  = threading.Thread(target=thread_proc, args=(lock, lock2, CAMILLE_ID, CAMILLE_SECRET, 2, IDs))
+t2.start()
+t3  = threading.Thread(target=thread_proc, args=(lock, lock2, JOSH_ID, JOSH_SECRET, 3, IDs))
+t3.start()
+t4  = threading.Thread(target=thread_proc, args=(lock, lock2, DAVID_ID, DAVID_SECRET, 4, IDs))
+t4.start()
 # t5  = threading.Thread(target=thread_proc, args=(lock, AUDRIS_ID, AUDRIS_SECRET, 4, IDs))
 # t5.start()
 # t6  = threading.Thread(target=thread_proc, args=(lock, JOHN_ID, JOHN_SECRET, 5, IDs))
 # t6.start()
 # t7  = threading.Thread(target=thread_proc, args=(lock, RJ_ID, RJ_SECRET, 6, IDs))
 # t7.start()
-# t8  = threading.Thread(target=thread_proc, args=(lock, ERIC_ID, ERIC_SECRET, 7, IDs))
-# t8.start()
-# t9  = threading.Thread(target=thread_proc, args=(lock, BRIAN_ID, BRIAN_SECRET, 8, IDs))
+t8  = threading.Thread(target=thread_proc, args=(lock, lock2, ERIC_ID, ERIC_SECRET, 5, IDs))
+t8.start()
+# t9  = threading.Thread(target=thread_proc, args=(lock, lock2, BRIAN_ID, BRIAN_SECRET, 6, IDs))
 # t9.start()
 # t10 = threading.Thread(target=thread_proc, args=(lock, MARK_ID, MARK_SECRET, 9, IDs))
 # t10.start()
@@ -119,15 +138,16 @@ t1.start()
 # t11.start()
 
 t1.join()
-# t2.join()
-# t3.join()
-# t4.join()
+t2.join()
+t3.join()
+t4.join()
 # t5.join()
 # t6.join()
 # t7.join()
-# t8.join()
+t8.join()
 # t9.join()
 # t10.join()
 # t11.join()
+t12.join()
 
 print 'Done with master thread'
