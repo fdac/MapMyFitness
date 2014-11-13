@@ -109,7 +109,7 @@ DEBUG_SECRET = 'shuWPNWWH3zhpw2k5seE9WJMY7HHa7x3xShYR5nv9Ya'
 
 
 
-IDs = [0,0,0,0,0,0]
+IDs = [0,0,0,0,0,0,0]
 
 t12 = threading.Thread(target=thread_proc, args=(lock, lock2, DEBUG_ID, DEBUG_SECRET, 0, IDs))
 t12.start()
@@ -122,19 +122,19 @@ t3  = threading.Thread(target=thread_proc, args=(lock, lock2, JOSH_ID, JOSH_SECR
 t3.start()
 t4  = threading.Thread(target=thread_proc, args=(lock, lock2, DAVID_ID, DAVID_SECRET, 4, IDs))
 t4.start()
-# t5  = threading.Thread(target=thread_proc, args=(lock, AUDRIS_ID, AUDRIS_SECRET, 4, IDs))
+# t5  = threading.Thread(target=thread_proc, args=(lock, lock2, AUDRIS_ID, AUDRIS_SECRET, 4, IDs))
 # t5.start()
-# t6  = threading.Thread(target=thread_proc, args=(lock, JOHN_ID, JOHN_SECRET, 5, IDs))
-# t6.start()
+t6  = threading.Thread(target=thread_proc, args=(lock, lock2, JOHN_ID, JOHN_SECRET, 5, IDs))
+t6.start()
 # t7  = threading.Thread(target=thread_proc, args=(lock, RJ_ID, RJ_SECRET, 6, IDs))
 # t7.start()
-t8  = threading.Thread(target=thread_proc, args=(lock, lock2, ERIC_ID, ERIC_SECRET, 5, IDs))
+t8  = threading.Thread(target=thread_proc, args=(lock, lock2, ERIC_ID, ERIC_SECRET, 6, IDs))
 t8.start()
 # t9  = threading.Thread(target=thread_proc, args=(lock, lock2, BRIAN_ID, BRIAN_SECRET, 6, IDs))
 # t9.start()
-# t10 = threading.Thread(target=thread_proc, args=(lock, MARK_ID, MARK_SECRET, 9, IDs))
+# t10 = threading.Thread(target=thread_proc, args=(lock, lock2, MARK_ID, MARK_SECRET, 9, IDs))
 # t10.start()
-# t11 = threading.Thread(target=thread_proc, args=(lock, MOHAMMAD_ID, MOHAMMAD_SECRET, 10, IDs))
+# t11 = threading.Thread(target=thread_proc, args=(lock, lock2, MOHAMMAD_ID, MOHAMMAD_SECRET, 10, IDs))
 # t11.start()
 
 t1.join()
@@ -142,7 +142,7 @@ t2.join()
 t3.join()
 t4.join()
 # t5.join()
-# t6.join()
+t6.join()
 # t7.join()
 t8.join()
 # t9.join()
