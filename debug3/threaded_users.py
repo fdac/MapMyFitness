@@ -21,7 +21,7 @@ def thread_proc(lock, lock2, client_id, client_secret, thread_id, user_array):
 	api = FitnessApi( client_id, client_secret )
 	lock2.release()
 
-	sys.exit()
+	# sys.exit()
 
 	# userIds = fitDb.get_userIds( thread_id, num_threads )
 	# for userId in userIds:
