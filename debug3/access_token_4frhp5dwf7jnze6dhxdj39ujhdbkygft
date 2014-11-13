@@ -1,0 +1,9 @@
+{
+  "user_id":"60936480",
+  "access_token":"80070b2deb20323a7efaaba208cb6c28138370fb",
+  "expires_in":5183999,
+  "token_type":"Bearer",
+  "scope":"read",
+  "user_href":"/v7.0/user/60936480/",
+  "refresh_token":"21e6ab0017697e6ddf676ada9cede5f87e25f48e"
+}
