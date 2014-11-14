@@ -13,6 +13,12 @@ class FitnessDatabase:
     self.friends_with = self.fitnessDb['friends_with']
     self.workouts = self.fitnessDb['workouts']
 
+  def get_workouts_collection(self):
+    return self.workouts
+
+  def get_users_collection(self):
+    return self.users_to_add
+
   def users_insert(self, user_doc):
     userId = user_doc['id']
     ret = self.users.find_one({'id': userId})

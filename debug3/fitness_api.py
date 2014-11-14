@@ -94,6 +94,8 @@ class FitnessApi:
       print headers
       sys.exit()
 
+    #print response.content
+
     # Over API call limit
     #if( response.status_code == 403 ):
     #  self.calls = self.limit
@@ -142,17 +144,22 @@ class FitnessApi:
     workouts_docs = []
     next_url = 'https://oauth2-api.mapmyapi.com/v7.0/workout/?user=%2Fv7.0%2Fuser%2F' + str(userId) + '%2F'
     while next_url:
+      print 'ID: ' + str(userId) + ' workout page'
       workouts_response = self.request( next_url )
       workouts = workouts_response['_embedded']['workouts']
       for workout in workouts:
-        workouts_doc['workout'] = workout
+    	workouts_doc = { 'userId' : userId, 'workout' : workout }
+        #workouts_doc['workout'] = workout
         workouts_docs.append( workouts_doc )
 
       try:
-        next_url = workouts_response['_links']['next']['href']
+        next_url = 'https://oauth2-api.mapmyapi.com' + workouts_response['_links']['next'][0]['href']
+	print 'Found next URL'
       except:
         next_url = ''
+        print 'Did not find next URL'
 
+    print 'Returning workouts doc'
     return workouts_docs
 
   def get_client_access_token( self ):
