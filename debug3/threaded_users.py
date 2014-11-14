@@ -21,8 +21,8 @@ def thread_proc(lock, lock2, client_id, client_secret, thread_id, user_array):
 	api = FitnessApi( client_id, client_secret )
 	lock2.release()
 
-	workouts_coll = fitDb.get_workouts_collection()
-	user_coll = fitDb.get_users_collection()
+	#workouts_coll = fitDb.get_workouts_collection()
+	#user_coll = fitDb.get_users_collection()
 	prev_id = 0
 	userId = 0
 	# sys.exit()
