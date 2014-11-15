@@ -9,9 +9,15 @@ class FitnessDatabase:
     self.fitnessDb = self.client['MapMyFitness']
 
     self.users = self.fitnessDb['users']
-    self.users_to_add = self.fitnessDb['users_copy']
+    self.users_to_add = self.fitnessDb['users_copy2']
     self.friends_with = self.fitnessDb['friends_with']
     self.workouts = self.fitnessDb['workouts']
+
+  def get_workouts_collection(self):
+    return self.workouts
+
+  def get_users_collection(self):
+    return self.users_to_add
 
   def users_insert(self, user_doc):
     userId = user_doc['id']

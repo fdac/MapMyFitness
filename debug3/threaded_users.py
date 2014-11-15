@@ -21,6 +21,10 @@ def thread_proc(lock, lock2, client_id, client_secret, thread_id, user_array):
 	api = FitnessApi( client_id, client_secret )
 	lock2.release()
 
+	#workouts_coll = fitDb.get_workouts_collection()
+	#user_coll = fitDb.get_users_collection()
+	prev_id = 0
+	userId = 0
 	# sys.exit()
 
 	# userIds = fitDb.get_userIds( thread_id, num_threads )
@@ -32,30 +36,63 @@ def thread_proc(lock, lock2, client_id, client_secret, thread_id, user_array):
 	while not fitDb.users_to_add_empty():
 
 		lock.acquire()
+		print 'Entering thread ' + str(thread_id) + ' lock'
+		#count = 0
+		#for entry in user_coll.find():
+			#print entry['id']
+			#if( count == 6 ):
+				#break
+			#count += 1
+		prev_id = userId
 		user_to_add_doc = fitDb.get_unique_user_to_add( thread_id, user_array )
 		userId = user_to_add_doc['id']
+		if(userId == prev_id):
+			print 'Duplicate ID found!'
+			lock.release()
+			thread.exit()
 		user_array[thread_id] = userId
+		print 'Thread ID: ' + str(thread_id) + ' userid: ' + str(userId)
+		sys.stdout.flush()
+		#print user_array
 		lock.release()
 
 		# Get docs via MapMyApi
+		#print 'Getting workouts for ' + str(userId)
 		user_doc = api.get_workouts_docs( userId )
-		if( user_doc == [] ):
-			print 'Received empty array for workouts, continuing'
-			continue
-		# else:
-			# friends_with_doc = api.get_friends_with_doc( userId )
-        
-		# if( friends_with_doc == '' ):
-			# print 'Received empty string for friends_with_doc, continuing'
-			# continue
+		if( user_doc != [] ):
+			fitDb.workouts_insert( user_doc )
 
 		# Add users to database
-		fitDb.workouts_insert( user_doc )
+		#print 'Inserting array into workouts'
+		#print user_doc
+		#fitDb.workouts_insert( user_doc )
+		#print 'Inserting workouts doc into database'
 		# fitDb.friends_with_insert( friends_with_doc )
 		# for user_doc in friends_with_doc['friends']:
 			# fitDb.users_to_add_insert( user_doc )
-
+		
+		#deleted_id = user_to_add_doc['_id']
+		#temp_found = workouts_coll.find_one({'_id': deleted_id})
+		#if( temp_found != None ):
+			#print str(thread_id) + ': Entry found before deletion'
+			#sys.stdout.flush()
+		#else:
+			#print str(thread_id) + ': Entry not found before deletion!!'
+			#sys.stdout.flush()
+			#sys.exit()
+		#try:
 		fitDb.users_to_add_remove( user_to_add_doc )
+		#except:
+			#print str(thread_id) + ': REMOVE FAILED!!!!!!!!!!!!!!'
+			#sys.exit()
+		#temp_found = workouts_coll.find_one({'_id': deleted_id})
+		#if( temp_found != None ):
+			#print str(thread_id) + ': DELETED ENTRY FOUND!!!!!'
+			#sys.exit()
+		#else:
+			#print str(thread_id) + ': deleted entry not found'
+		
+		#print 'Removing entry'
 
 		sys.stdout.flush()
 		sys.stderr.flush()
