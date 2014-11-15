@@ -14,9 +14,10 @@ for userId in f:
   count = cursor.count()
   print str( userId ) + ": " + str( count )
 
-  if count > 2:
+  if count >= 2:
     # Remove first instance
-    # users.remove( { '_id' : cursor[0]['_id'] } ) 
+    for i in range(count-1):
+        users.remove( { '_id' : cursor[i]['_id'] } ) 
   
 
 f.close()
