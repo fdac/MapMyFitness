@@ -102,7 +102,7 @@ def get_values( doc, headers ):
         value = ''
       if value == None:
         value = ''
-      s += value + ','
+      s += str(value) + ','
     elif(header == 'userId'):
       try:
         value = workout[header]
@@ -110,7 +110,7 @@ def get_values( doc, headers ):
         value = ''
       if value == None:
         value = ''
-      s += value
+      s += str(value)
     else:
       try:
         value = workout[header]
@@ -118,7 +118,7 @@ def get_values( doc, headers ):
         value = ''
       if value == None:
         value = ''
-      s += value + ','
+      s += str(value) + ','
   return s
 
 
