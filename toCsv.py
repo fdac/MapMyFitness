@@ -119,6 +119,7 @@ def get_values( doc, headers ):
       if value == None:
         value = ''
       s += str(value) + ','
+  s += '\n'
   return s
 
 
