@@ -23,31 +23,98 @@ def get_headers( doc ):
   s += 'userId\n'
   return s
 
-def get_values( doc ):
+def get_values( doc, headers ):
   s = ''
   workout = doc['workout']
-  for field in workout:
+  # try:
+  #   value = workout['start_datetime']
+  # except:
+  #   value = ''
+  # s += value + ','
 
-    if field == '_links' or field == 'notes' or field == 'name':
-      continue
+  # try:
+  #   value = workout['updated_datetime']
+  # except:
+  #   value = ''
+  # s += value + ','
 
-    if field == 'aggregates':
-      aggregates = workout[field]
-      for aggregate in aggregates:
-        try:
-          value = str( aggregates[aggregate] )
-        except:
-          value = ''
-        s += value + ','
-    else:
+  # try:
+  #   value = workout['created_datetime']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['reference_key']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['start_locale_timezone']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['source']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['has_time_series']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['']
+  # for field in workout:
+
+  #   if field == '_links' or field == 'notes' or field == 'name':
+  #     continue
+
+  #   if field == 'aggregates':
+  #     aggregates = workout[field]
+  #     for aggregate in aggregates:
+  #       try:
+  #         value = str( aggregates[aggregate] )
+  #       except:
+  #         value = ''
+  #       s += value + ','
+  #   else:
+  #     try:
+  #       value = str( workout[field] )
+  #     except:
+  #       value = ''
+  #     s += value + ','
+
+  # s += str( doc['userId'] ) + '\n'
+  # return s
+  # 
+  headerList = headers.split(',')
+  for header in headerList:
+    if(header == 'active_time_total' or header == 'distance_total' or header == 'speed_max' or header == 'steps_total' or header == 'speed_avg' or header == 'elapsed_time_total' or header == 'metabolic_time_total'):
       try:
-        value = str( workout[field] )
+        value = workout['aggregates'][header]
       except:
         value = ''
       s += value + ','
-
-  s += str( doc['userId'] ) + '\n'
+    elif(header == 'userId'):
+      try:
+        value = workout[header]
+      except:
+        value = ''
+      s += value
+    else:
+      try:
+        value = workout[header]
+      except:
+        value = ''
+      s += value + ','
   return s
+
 
 # client = pymongo.MongoClient('localhost')
 client = pymongo.MongoClient('da0.eecs.utk.edu')
@@ -70,7 +137,7 @@ headers = get_headers( doc )
 f.write( headers )
 
 for doc in workouts.find():
-  values = get_values( doc )
+  values = get_values( doc, headers )
   f.write( values )
 f.close()
 
