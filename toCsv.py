@@ -100,17 +100,23 @@ def get_values( doc, headers ):
         value = workout['aggregates'][header]
       except:
         value = ''
+      if value == None:
+        value = ''
       s += value + ','
     elif(header == 'userId'):
       try:
         value = workout[header]
       except:
         value = ''
+      if value == None:
+        value = ''
       s += value
     else:
       try:
         value = workout[header]
       except:
+        value = ''
+      if value == None:
         value = ''
       s += value + ','
   return s
