@@ -54,7 +54,6 @@ client = pymongo.MongoClient('localhost')
 db = client['MapMyFitness']
 workouts = db['workouts']
 
-# doc = workouts.find_one()
 # doc = workouts.find(fields={ '_id' : 0 })[40]
 # doc = workouts.find(fields={ '_id' : 0 })[463876]
 
@@ -66,10 +65,12 @@ workouts = db['workouts']
 # f.close()
 
 f = open('workouts.csv', 'w')
+doc = workouts.find_one()
+headers = get_headers( doc )
+f.write( headers )
+
 for doc in workouts.find():
-  headers = get_headers( doc )
   values = get_values( doc )
-  f.write( headers )
   f.write( values )
 f.close()
 
