@@ -49,8 +49,8 @@ def get_values( doc ):
   s += str( doc['userId'] ) + '\n'
   return s
 
-client = pymongo.MongoClient('localhost')
-# client = pymongo.MongoClient('da0.eecs.utk.edu')
+# client = pymongo.MongoClient('localhost')
+client = pymongo.MongoClient('da0.eecs.utk.edu')
 db = client['MapMyFitness']
 workouts = db['workouts']
 
