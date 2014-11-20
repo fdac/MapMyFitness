@@ -26,50 +26,7 @@ def get_headers( doc ):
 def get_values( doc, headers ):
   s = ''
   workout = doc['workout']
-  # try:
-  #   value = workout['start_datetime']
-  # except:
-  #   value = ''
-  # s += value + ','
 
-  # try:
-  #   value = workout['updated_datetime']
-  # except:
-  #   value = ''
-  # s += value + ','
-
-  # try:
-  #   value = workout['created_datetime']
-  # except:
-  #   value = ''
-  # s += value + ','
-
-  # try:
-  #   value = workout['reference_key']
-  # except:
-  #   value = ''
-  # s += value + ','
-
-  # try:
-  #   value = workout['start_locale_timezone']
-  # except:
-  #   value = ''
-  # s += value + ','
-
-  # try:
-  #   value = workout['source']
-  # except:
-  #   value = ''
-  # s += value + ','
-
-  # try:
-  #   value = workout['has_time_series']
-  # except:
-  #   value = ''
-  # s += value + ','
-
-  # try:
-  #   value = workout['']
   # for field in workout:
 
   #   if field == '_links' or field == 'notes' or field == 'name':
@@ -92,7 +49,7 @@ def get_values( doc, headers ):
 
   # s += str( doc['userId'] ) + '\n'
   # return s
-  # 
+  
   headerList = headers.split(',')
   for header in headerList:
     if(header == 'active_time_total' or header == 'distance_total' or header == 'speed_max' or header == 'steps_total' or header == 'speed_avg' or header == 'elapsed_time_total' or header == 'metabolic_time_total'):
