@@ -132,7 +132,7 @@ class FitnessApi:
         friends_with_doc['friends'].append( user )
 
       try:
-        next_url = friends_with_response['_links']['next']['href']
+	next_url = 'https://oauth2-api.mapmyapi.com' + friends_with_response['_links']['next'][0]['href']
       except:
         next_url = ''
 
