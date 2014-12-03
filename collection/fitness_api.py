@@ -1,3 +1,6 @@
+# Chris Daffron and Josh Willis
+# willis2342@gmail.com
+# November 2014
 
 import requests
 import time as time2

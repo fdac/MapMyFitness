@@ -1,3 +1,6 @@
+# Audris Mockus
+# November 2014
+
 import sys, re, pymongo, json, time
 import datetime
 from requests.auth import HTTPBasicAuth

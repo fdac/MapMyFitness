@@ -1,4 +1,10 @@
 
+# Josh Willis
+# November 2014
+# willis2342@gmail.com
+# 
+# Use of rmongodb, a MongoDB library for R
+
 library(rmongodb)
 
 # ssh -L27017:da0.eecs.utk.edu:27017 -p 2200 -fN jwill221@da2.eecs.utk.edu 

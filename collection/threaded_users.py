@@ -1,3 +1,6 @@
+# Chris Daffron
+# November 2014
+
 import pymongo
 import threading
 import thread

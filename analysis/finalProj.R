@@ -1,3 +1,6 @@
+# Camille Crumpton
+# Novemeber 2014
+
 setwd("~/Documents/Class/Grad/2014Fall/FDAC/MapMyFitness/")
 
 # read in data

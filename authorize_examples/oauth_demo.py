@@ -1,3 +1,6 @@
+# Chris Daffron
+# November 2014
+
 import logging
 import os
 import sys
