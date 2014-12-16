@@ -6,16 +6,19 @@ from bson import json_util
 
 verbose = False
 
-client = pymongo.MongoClient('localhost')
+# client = pymongo.MongoClient('localhost')
+client = pymongo.MongoClient('da0.eecs.utk.edu')
 fitnessDb = client['MapMyFitness']
 
 users = fitnessDb['users']
 users_to_add = fitnessDb['users_to_add']
+users_to_add_copy2 = fitnessDb['users_to_add_copy2']
 friends_with = fitnessDb['friends_with']
 
 print '# users: ' + str(users.count())
 print '# users to add: ' + str(users_to_add.count())
 print '# users with friends: ' + str(friends_with.count())
+print '# users to add copy2: ' + str(users_to_add_copy2.count())
 
 if verbose:
 

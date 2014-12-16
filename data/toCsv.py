@@ -26,7 +26,55 @@ def get_headers( doc ):
 def get_values( doc, headers ):
   s = ''
   workout = doc['workout']
+<<<<<<< Updated upstream
 
+=======
+  #print doc['userId']
+  # try:
+  #   value = workout['start_datetime']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['updated_datetime']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['created_datetime']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['reference_key']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['start_locale_timezone']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['source']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['has_time_series']
+  # except:
+  #   value = ''
+  # s += value + ','
+
+  # try:
+  #   value = workout['']
+>>>>>>> Stashed changes
   # for field in workout:
 
   #   if field == '_links' or field == 'notes' or field == 'name':
@@ -52,31 +100,39 @@ def get_values( doc, headers ):
   
   headerList = headers.split(',')
   for header in headerList:
-    if(header == 'active_time_total' or header == 'distance_total' or header == 'speed_max' or header == 'steps_total' or header == 'speed_avg' or header == 'elapsed_time_total' or header == 'metabolic_time_total'):
+    if(header == 'active_time_total' or header == 'distance_total' or header == 'speed_max' or header == 'steps_total' or header == 'speed_avg' or header == 'elapsed_time_total' or header == 'metabolic_energy_total'):
+      #print 'Getting header1 ', header
       try:
         value = workout['aggregates'][header]
+        #print 'Got value ', value
       except:
         value = ''
-      if value == None:
-        value = ''
+        #print 'Did not get a value'
       s += str(value) + ','
-    elif(header == 'userId'):
+    elif(header == 'userId\n'):
+      #print 'Getting header2 ', header
       try:
-        value = workout[header]
+        value = doc['userId']
+        #print 'Got value ', str(value)
       except:
         value = ''
-      if value == None:
-        value = ''
+        #print 'Did not get a value'
       s += str(value)
     else:
+      #print 'Getting header3 ', header
       try:
         value = workout[header]
+        #print 'Got value ', value
       except:
-        value = ''
-      if value == None:
-        value = ''
+        try:
+          value = doc[header]
+          #print 'Got value2 ', str(value)
+        except:
+          value = ''
+          #print 'Did not get a value'
       s += str(value) + ','
   s += '\n'
+  #exit()
   return s
 
 
