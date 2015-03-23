@@ -31,7 +31,11 @@ ids = [
 'cx64t5vm27e2pzgwqaqvs2fsxhsrhd73', #John
 'cv8rzqn82xq9uub7ybta4y69jxfyfmjb', #david
 'ceddqsjxbbjmrvzzuha3eatmewtyfu4e', #fdac3
-'4s53en4vju5pn7bde32bkp9f84pu2euf' #bryan
+'4s53en4vju5pn7bde32bkp9f84pu2euf', #bryan
+'scfmbawtvvcgny7rnnvnvzuwy84p9p2z', #fdac0
+'vcgmh4xc7xnp7ddmr39mz8e8qcw9athf', #fdac00
+'5qpn46js8z762ftj9crnrqrqbxn8kgtf', #fdac01
+'brb2n4nc42zwmgxxcpgwvbhsjygcqz8f' #collect0
 ]
 
 id = {
@@ -43,7 +47,11 @@ id = {
 'cx64t5vm27e2pzgwqaqvs2fsxhsrhd73': 'yut7ya9PpYUkeDTtgRcdCH87Ee4eMXGXA5MK32GtWx5', #John
 'cv8rzqn82xq9uub7ybta4y69jxfyfmjb': 'WMbJFvksTUMgHFDTaCNtA9CRHmc8P6RhSUvXtF6cfny', #david
 'ceddqsjxbbjmrvzzuha3eatmewtyfu4e': 'anTg7weEWNFJgnK2tY8A9pCzuCeAQQYJwnV4bXYW7kh', #fdac3
-'4s53en4vju5pn7bde32bkp9f84pu2euf': 'P2tjx4j758n6yBqpNQaTx97HPrAuCE3sUGEW8fAzuhC' #bryan
+'4s53en4vju5pn7bde32bkp9f84pu2euf': 'P2tjx4j758n6yBqpNQaTx97HPrAuCE3sUGEW8fAzuhC', #bryan
+'scfmbawtvvcgny7rnnvnvzuwy84p9p2z': 'W73jQG92nAcRa96y27UjDr2cRZcWhW2P73UG5cDMGQE', #fdac0
+'vcgmh4xc7xnp7ddmr39mz8e8qcw9athf': 'rJWuzQjpCEBGrtYhFJHDFMdXt7MRaMQN7AJ8cUv5bxF', #fdac00
+'5qpn46js8z762ftj9crnrqrqbxn8kgtf': 'rJWuzQjpCEBGrtYhFJHDFMdXt7MRaMQN7AJ8cUv5bxF', #fdac01
+'brb2n4nc42zwmgxxcpgwvbhsjygcqz8f': 'jXZDAwPKfecrdMbwHAMpF5PMSR5SvGUwFRnHFeMdCtp' #collect0
 }
 
 AUDRIS_ID = 'smyfv7ec67q7t6jqcfwhrv299x4g4rtv'
@@ -63,7 +71,7 @@ DEBUG_ID = 'bn5tf5r8j7qdrbqjn5tpq9r3wdsvmr74'
 DEBUG_SECRET = 'shuWPNWWH3zhpw2k5seE9WJMY7HHa7x3xShYR5nv9Ya'
 
 
-IDs = [0,0,0,0,0,0,0,0,0,0,0]
+IDs = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 i = int(sys.argv[1])
 key = ids [i]
